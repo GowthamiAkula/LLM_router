@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   prompt-router:
     build: .
@@ -8,4 +6,5 @@ services:
       - .env
     volumes:
       - .:/app
-    command: python main.py
+    stdin_open: true
+    tty: true

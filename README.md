@@ -6,7 +6,7 @@ This project implements an **LLM-powered prompt routing system** that classifies
 
 Instead of using one generic prompt, the system first **detects the user's intent** and then **delegates the request to a specialized expert prompt** designed for that task.
 
-This architecture improves response quality and reflects how many real-world AI applications are built.
+This architecture improves response quality and reflects how many **real-world AI applications** are built.
 
 ---
 
@@ -54,8 +54,6 @@ Request Logging
 
 # Supported Intents
 
-The system currently supports the following intent categories:
-
 | Intent    | Description                                    |
 | --------- | ---------------------------------------------- |
 | `code`    | Programming questions and debugging            |
@@ -68,23 +66,23 @@ The system currently supports the following intent categories:
 
 # Expert Personas
 
-The system includes four expert personas:
+The system includes four expert personas.
 
 ### Code Expert
 
-Provides technical programming advice and guidance for debugging and coding problems.
+Provides technical programming advice and debugging help.
 
 ### Data Analyst
 
-Helps interpret datasets, statistics, and patterns in data.
+Helps interpret datasets, statistics, and data patterns.
 
 ### Writing Coach
 
-Provides suggestions to improve clarity, tone, and structure in writing.
+Suggests improvements in clarity, tone, and sentence structure.
 
 ### Career Advisor
 
-Offers practical career advice and recommendations.
+Provides career guidance and professional advice.
 
 ---
 
@@ -101,19 +99,22 @@ prompt-router/
 ├── test_cases.py
 ├── route_log.jsonl
 ├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example
 └── README.md
 ```
 
 ### File Description
 
 **main.py**
-Runs the main interactive application.
+Runs the interactive command-line application.
 
 **classifier.py**
-Uses a Large Language Model to detect the user’s intent.
+Uses a Large Language Model to classify user intent.
 
 **router.py**
-Routes the request to the correct expert persona.
+Routes requests to the appropriate expert persona.
 
 **prompts.py**
 Stores the expert system prompts.
@@ -127,25 +128,70 @@ Runs automated tests using sample user messages.
 **route_log.jsonl**
 Stores request logs for monitoring and debugging.
 
+**Dockerfile**
+Defines the containerized environment for the application.
+
+**docker-compose.yml**
+Runs the containerized application using Docker Compose.
+
+**.env.example**
+Documents required environment variables.
+
 ---
 
-# Installation
+# Environment Variables
 
-Clone the repository and install dependencies.
+Create a `.env` file using `.env.example`.
+
+Example:
+
+```
+HF_API_KEY=your_huggingface_api_key
+OPENAI_API_KEY=your_openai_api_key
+```
+
+These keys are used for accessing LLM services.
+
+---
+
+# Installation (Local Run)
+
+Clone the repository:
+
+```
+git clone <repository_url>
+cd prompt-router
+```
+
+Install dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
----
-
-# Running the Application
-
-Start the interactive router:
+Run the application:
 
 ```
 python main.py
 ```
+
+---
+
+# Running the Application with Docker
+
+Build and run the container:
+
+```
+docker compose up --build
+```
+
+Alternatively run interactively:
+
+```
+docker compose run --rm prompt-router
+```
+
+This starts the CLI application inside a Docker container.
 
 Example interaction:
 
@@ -218,6 +264,8 @@ This forces the router to send the request directly to the **Code Expert**.
 * HuggingFace LLM (Zero-Shot Classification)
 * Requests Library
 * JSON Logging
+* Docker
+* Docker Compose
 
 ---
 
@@ -230,23 +278,13 @@ This forces the router to send the request directly to the **Code Expert**.
 * Manual override capability
 * Request logging
 * Automated testing
-
----
-
-# Future Improvements
-
-Possible extensions include:
-
-* Adding a web interface using Flask or FastAPI
-* Improving classification accuracy using fine-tuned models
-* Implementing real-time monitoring dashboards
-* Expanding the number of expert personas
+* Docker containerization
 
 ---
 
 # Conclusion
 
 This project demonstrates a **production-style prompt routing architecture** where an LLM is used to classify user intent and route requests to specialized prompts.
-Such systems are widely used in modern AI applications to improve response quality and maintain modular system design.
 
+Such systems are widely used in modern AI applications to improve response quality and maintain modular system design.
 
